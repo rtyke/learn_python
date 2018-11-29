@@ -21,17 +21,6 @@ logging.basicConfig(
 
 CURRENT_YEAR = datetime.strftime(datetime.now(), '%Y')
 
-PLANETS_OBJS = {
-    'mercury': ephem.Mercury(CURRENT_YEAR),
-    'venus': ephem.Venus(CURRENT_YEAR),
-    # 'earth': ephem.Earth(CURRENT_YEAR),
-    'mars': ephem.Mars(CURRENT_YEAR),
-    'jupiter': ephem.Jupiter(CURRENT_YEAR),
-    'saturn': ephem.Saturn(CURRENT_YEAR),
-    'uranus': ephem.Uranus(CURRENT_YEAR),
-    'neptune': ephem.Neptune(CURRENT_YEAR),
-}
-
 
 def greet_user(bot, update):
     text = '/start invoked'
@@ -46,12 +35,13 @@ def talk_to_me(bot, update):
 
 
 def get_constellation(bot, update):
-    planet = update.message.text.split()[1]
-    if planet in PLANETS_OBJS:
-        constellation = ephem.constellation(PLANETS_OBJS[planet])
+    planet = update.message.text.split()[1].lower().capitalize()
+    planet_obj = getattr(ephem, planet, None)
+    if planet_obj:
+        constellation = ephem.constellation(planet_obj(CURRENT_YEAR))
         update.message.reply_text(constellation[1])
     else:
-        update.message.reply_text('Not a planet')
+        update.message.reply_text(f'{planet} is not a planet')
 
 
 def main():
