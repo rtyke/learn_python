@@ -1,3 +1,5 @@
+# https://learn.python.ru/lessons/13_for.html?full#16
+
 scores = [
     {'school_class': '4a', 'scores': [3, 4, 4, 5, 2]},
     {'school_class': '2b', 'scores': [5, 4, 4, 5, 5]},
