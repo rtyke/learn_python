@@ -2,11 +2,11 @@
 
 
 def define_occupation(age):
-    if age in range(0, 7):
+    if age < 7:
         return 'Kindergarten'
-    elif age in range(7, 18):
+    elif 7 <= age < 18:
         return 'School'
-    elif age in range(18, 23):
+    elif 18 <= age < 23:
         return 'University'
     else:
         return 'Working hard'
