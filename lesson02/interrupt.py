@@ -15,8 +15,9 @@ def ask_user():
                 break
             print(dic.get(response, 'Dunno what to say to you'))
         except KeyboardInterrupt:
-            print('\nBye!')
-            break
+            print()
+            print('Bye!')
+            return
 
 
 if __name__ == '__main__':
