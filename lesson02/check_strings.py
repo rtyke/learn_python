@@ -6,7 +6,7 @@ def check_strings(first_string, second_string):
         return 0
     elif first_string == second_string:
         return 1
-    elif first_string > second_string:
+    elif len(first_string) > len(second_string):
         return 2
     elif second_string == 'learn':
         return 3
