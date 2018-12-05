@@ -25,7 +25,6 @@ def count_name_occurrence(students):
 
 
 students_names_occurrence = count_name_occurrence(students)
-
 for name, repeats in students_names_occurrence.items():
     print(f'{name}: {repeats}')
 
@@ -55,6 +54,7 @@ def get_key_with_max_value(dicti):
     key_with_max_value = Counter(students_names_occurrence).most_common(1)
     return key_with_max_value[0][0]
 
+
 students_names_occurrence = count_name_occurrence(students)
 most_common_name = get_key_with_max_value(students_names_occurrence)
 print(f'The most common name is: {most_common_name}')
@@ -77,14 +77,13 @@ school_students = [
   ]
 ]
 
-class_counter = 1
-for school_class in school_students:
+
+for i, school_class in enumerate(school_students):
     students_names_occurrence = count_name_occurrence(school_class)
     most_common_name = get_key_with_max_value(students_names_occurrence)
     print(
-        f'{most_common_name} is the most common name in class {class_counter}'
+        f'{most_common_name} is the most common name in class {i+1}'
     )
-    class_counter += 1
 
 
 # Пример вывода:
