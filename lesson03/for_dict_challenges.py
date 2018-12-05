@@ -19,7 +19,7 @@ students = [
 #         name = dicti['first_name']
 #         names_occurrence[name] = names_occurrence.get(name, 0) + 1
 #     return names_occurrence
-def count_name_occurrence(list_of_dicts):
+def count_name_occurrence(students):
     students_names = [student['first_name'] for student in students]
     return Counter(students_names)
 
