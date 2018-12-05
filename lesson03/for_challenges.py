@@ -5,9 +5,9 @@ names = ['Оля', 'Петя', 'Вася', 'Маша']
 for name in names:
     print(name)
 
-# за такое по рукам не бьют? Вроде жаль городить цикл из-за крошечной операции,
+# за решение ниже по рукам не бьют? Вроде жаль городить цикл из-за крошечной операции,
 # с другой стороны, распаковка списка в print выглядит непривчной
-# print(*names, sep =', ')
+print(*names, sep=', ')
 
 
 # Задание 2
@@ -51,12 +51,12 @@ groups = [
 ]
 
 groups_number = len(groups)
-groups_volume = [len(inner_group) for inner_group in groups]
+members_in_group = [len(inner_group) for inner_group in groups]
 
 
 print(f'There are {groups_number} groups.')
-for group_volume in groups_volume:
-    print(f'There are {group_volume} student in group.')
+for group_volume in members_in_group:
+    print(f'There are {members_in_group} students in group.')
 
 
 # Задание 5
@@ -71,7 +71,6 @@ groups = [
 ]
 
 group_counter = 1
-for inner_group in groups:
+for i, inner_group in enumerate(groups):
     names = ', '.join(inner_group)
-    print(f'Group {group_counter} : {names}')
-    group_counter += 1
+    print(f'Group {i+1} : {names}')
