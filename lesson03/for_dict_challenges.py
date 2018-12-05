@@ -1,3 +1,5 @@
+from collections import Counter
+
 # Задание 1
 # Дан список учеников, нужно посчитать количество повторений каждого имени ученика.
 students = [
@@ -9,14 +11,17 @@ students = [
 ]
 
 
+# def count_name_occurrence(list_of_dicts):
+#     """когда-то нашла такой сниппет и с тех пор для подобных задач (посчитать
+#     дубли) использую этот прием. Это не слишком костыльно?"""
+#     names_occurrence = {}
+#     for dicti in list_of_dicts:
+#         name = dicti['first_name']
+#         names_occurrence[name] = names_occurrence.get(name, 0) + 1
+#     return names_occurrence
 def count_name_occurrence(list_of_dicts):
-    """когда-то нашла такой сниппет и с тех пор для подобных задач (посчитать
-    дубли) использую этот прием. Это не слишком костыльно?"""
-    names_occurrence = {}
-    for dicti in list_of_dicts:
-        name = dicti['first_name']
-        names_occurrence[name] = names_occurrence.get(name, 0) + 1
-    return names_occurrence
+    students_names = [student['first_name'] for student in students]
+    return Counter(students_names)
 
 
 students_names_occurrence = count_name_occurrence(students)
@@ -41,19 +46,14 @@ students = [
 ]
 
 
-# def collect_keys_with_max_value(dicti):
-#     highest_occurrence_keys = []
+# def get_key_with_max_value(dicti):
 #     highest_occurrence_score = max(dicti.values())
 #     for key, occurrence_score in dicti.items():
 #         if occurrence_score == highest_occurrence_score:
-#             highest_occurrence_keys.append(key)
-#     return highest_occurrence_keys
+#             return key
 def get_key_with_max_value(dicti):
-    highest_occurrence_score = max(dicti.values())
-    for key, occurrence_score in dicti.items():
-        if occurrence_score == highest_occurrence_score:
-            return key
-
+    key_with_max_value = Counter(students_names_occurrence).most_common(1)
+    return key_with_max_value[0][0]
 
 students_names_occurrence = count_name_occurrence(students)
 most_common_name = get_key_with_max_value(students_names_occurrence)
@@ -145,17 +145,29 @@ is_male = {
 }
 
 
+male_most = None
+female_most = None
 
-
-# update class dictionary with info about students gender
-for school_class in school:
+for i, school_class in enumerate(school):
     students = school_class['students']
     students_sex = define_students_sex(students)
+    school_class['students_sex'] = students_sex
+    if i == 0:
+        female_most = school_class['class']
+        male_most = school_class['class']
+        continue
+    current_class_males_number = students_sex['Male']
+    current_class_females_number = students_sex['Female']
+    previous_class = school[i-1]
+    previous_class_males_number = previous_class['students_sex']['Male']
+    previous_class_females_number = previous_class['students_sex']['Female']
+    if current_class_males_number > previous_class_males_number:
+        male_most = school_class['class']
+    if current_class_females_number > previous_class_females_number:
+        female_most = school_class['class']
 
-
-
-
-
+print(f'Больше всего мальчиков в классе {male_most}')
+print(f'Больше всего девочек в классе {female_most}')
 
 
 # Пример вывода:
