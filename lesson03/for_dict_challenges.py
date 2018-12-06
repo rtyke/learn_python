@@ -111,20 +111,19 @@ def define_students_sex(students):
     for student in students:
         student_name = student['first_name']
         if is_male[student_name]:
-            students_sex['Male'] = students_sex['Male'] + 1
+            students_sex['Male'] += 1
         else:
-            students_sex['Female'] = students_sex['Female'] + 1
+            students_sex['Female'] += 1
     return students_sex
 
 
 for school_class in school:
     students_sex = define_students_sex(school_class['students'])
     class_name = school_class['class']
-    girls_number = students_sex['Female']
-    boys_number = students_sex['Male']
     print(
-        f'There are {girls_number} girls and {boys_number} boys in {class_name}'
-    )
+        f'There are {students_sex["Female"]} girls and {students_sex["Male"]} '
+        f'boys in {class_name}'
+          )
 
 # Пример вывода:
 # В классе 2a 2 девочки и 0 мальчика.
@@ -136,6 +135,7 @@ for school_class in school:
 school = [
   {'class': '2a', 'students': [{'first_name': 'Маша'}, {'first_name': 'Оля'}]},
   {'class': '3c', 'students': [{'first_name': 'Олег'}, {'first_name': 'Миша'}]},
+  {'class': '3d', 'students': [{'first_name': 'Олег'}, {'first_name': 'Миша'}]}
 ]
 is_male = {
   'Маша': False,
@@ -148,23 +148,25 @@ is_male = {
 male_most = None
 female_most = None
 
+males_females = {}
 for i, school_class in enumerate(school):
     students = school_class['students']
     students_sex = define_students_sex(students)
-    school_class['students_sex'] = students_sex
-    if i == 0:
-        female_most = school_class['class']
-        male_most = school_class['class']
-        continue
-    current_class_males_number = students_sex['Male']
-    current_class_females_number = students_sex['Female']
-    previous_class = school[i-1]
-    previous_class_males_number = previous_class['students_sex']['Male']
-    previous_class_females_number = previous_class['students_sex']['Female']
-    if current_class_males_number > previous_class_males_number:
-        male_most = school_class['class']
-    if current_class_females_number > previous_class_females_number:
-        female_most = school_class['class']
+    class_name = school_class['class']
+    males_females[class_name] = students_sex
+    if not male_most or not female_most:
+        male_most = class_name
+        female_most = class_name
+    else:
+        current_class_males_count = students_sex['Male']
+        current_class_females_count = students_sex['Female']
+        previous_class_name = school[i-1]['class']
+        previous_class_males_count = males_females[previous_class_name]['Male']
+        previous_class_females_count = males_females[previous_class_name]['Female']
+        if current_class_males_count > previous_class_males_count:
+            male_most = school_class['class']
+        if current_class_females_count > previous_class_females_count:
+            female_most = school_class['class']
 
 print(f'Больше всего мальчиков в классе {male_most}')
 print(f'Больше всего девочек в классе {female_most}')
